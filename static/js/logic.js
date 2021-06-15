@@ -48,4 +48,7 @@ d3.json(eqURL, function(eqData){
                 return "lightgreen";
         }
     }
+
+    // create GeoJSON layer of all points
+    // each popup describes the place and time of earthquake
 })
