@@ -65,5 +65,10 @@ d3.json(eqURL, function(eqData){
                 }
             );
         },
-    })
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup("<h3>Location: "+feature.properties.place + "</h2><h2><p>Date: " + feature.properties.time + "</p><hr><p>Magnitude: " +feature.properties.mag + "</p>");
+        }
+    }).addTo(eq);
+    // send earthquake layer to create Map function
+    eq.addTo(myMap);
 })
