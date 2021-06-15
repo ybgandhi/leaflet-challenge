@@ -51,4 +51,19 @@ d3.json(eqURL, function(eqData){
 
     // create GeoJSON layer of all points
     // each popup describes the place and time of earthquake
+    L.geoJSON(eqData, {
+        pointToLayer: function(feature, latlng) {
+            return L.circleMarker(latlng,
+                //set style of marker based on properties.mag
+                {
+                    radius: markerSize(feature.properties.mag),
+                    fillColor: chooseColor(feature.geometry.coordinates[2]),
+                    fillOpacity: 0.7,
+                    color: "black",
+                    stroke: true,
+                    weight: 0.5
+                }
+            );
+        },
+    })
 })
