@@ -35,6 +35,24 @@ var outdoors = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/
     accessToken: API_KEY
   });
 
+var darkMap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "dark-v10",
+    accessToken: API_KEY
+  });
+
+var baseMaps = {
+    "Satellite Map": satellite,
+    "Grayscale Map": streetmap,
+    "Outdoors Maps": outdoors,
+    "Dark Map": darkMap
+};
+
+var overlayMaps {
+    "Earthquakes": eq,
+    "Tectonic Plates" tectonicplates
+};
 
 // create map giving layer group and street layer properties
 var myMap = L.map("mapid", {
@@ -44,6 +62,12 @@ var myMap = L.map("mapid", {
     zoom: 2 ,
     layers: [streetmap, eq]
 });
+
+// Control layer passed in baseMaps and overlayMaps
+// add layer control to the map
+L.control.layers(baseMaps, overlayMaps, {
+    collapsed: false
+}).addTo(myMap);
 
 // D3 to pull in data
 d3.json(eqURL, function(eqData){
@@ -93,6 +117,15 @@ d3.json(eqURL, function(eqData){
     // send earthquake layer to create Map function
     eq.addTo(myMap);
 
+    // get tectonic plate using GeoJSON using tectonic plate url
+    d3.json(tectonicplatesURL, function(data){
+        L.geoJSON(data, {
+            color: "orange",
+            weight: 2
+        }).addTo(tectonicplates);
+        tectonicplates.addTo(myMap);
+    });
+    
     // add legend
     var legend = L.control({position: "bottomright"});
     legend.onAdd = function() {
