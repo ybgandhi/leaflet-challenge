@@ -19,7 +19,7 @@ var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/
 console.log(streetmap);
 
 // create map giving layer group and street layer properties
-var myMap = L.map("map-id", {
+var myMap = L.map("map", {
     center: [37.09, -95.71],
     zoom: 2 ,
     layers: [streetmap]

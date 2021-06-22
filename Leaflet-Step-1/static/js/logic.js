@@ -16,7 +16,7 @@ var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}
 });
 
 // create map giving layer group and street layer properties
-var myMap = L.map("mapid", {
+var myMap = L.map("map", {
     center: [
         37.09, -95.71
     ],
