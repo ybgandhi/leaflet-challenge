@@ -49,13 +49,13 @@ var baseMaps = {
     "Dark Map": darkMap
 };
 
-var overlayMaps {
+var overlayMaps = {
     "Earthquakes": eq,
-    "Tectonic Plates" tectonicplates
+    "Tectonic Plates": tectonicplates
 };
 
 // create map giving layer group and street layer properties
-var myMap = L.map("mapid", {
+var myMap = L.map("map", {
     center: [
         37.09, -95.71
     ],
@@ -127,17 +127,17 @@ d3.json(eqURL, function(eqData){
     });
     
     // add legend
-    // var legend = L.control({position: "bottomright"});
-    // legend.onAdd = function() {
-    //     var div = L.DomUntil.create("div", "info legend"),
-    //     depth = [-10, 10, 30, 50, 70, 90];
+    var legend = L.control({position: "bottomright"});
+    legend.onAdd = function() {
+        var div = L.DomUntil.create("div", "info legend"),
+        depth = [-10, 10, 30, 50, 70, 90];
 
-    //     div.innerHTML += "<h3 style='text-align: center'>Depth</h3>"
-    // for (var i =0; i < depth.length; i++){
-    //     div.innerHTML +=
-    //     '<i style="background:' + chooseColor(depth[i] + 1) + '"></i> ' + depth[i] + (depth[i+1] ? '&ndash;' +depth[i+1]+ '<br>': '+');
-    //     }
-    //     return div;
-    // };
-    // legend.addTo(myMap);
+        div.innerHTML += "<h3 style='text-align: center'>Depth</h3>"
+        for (var i =0; i < depth.length; i++){
+            div.innerHTML +=
+            '<i style="background:' + chooseColor(depth[i] + 1) + '"></i> ' + depth[i] + (depth[i+1] ? '&ndash;' +depth[i+1]+ '<br>': '+');
+        }
+        return div;
+     };
+    legend.addTo(myMap);
 });
